@@ -1,0 +1,32 @@
+function RenameAndCopy($sourceComputer, $sourceFilePath, $targetComputer, $targetFilePath)
+{
+               #Renaming the the target file, on the target path
+               $fileToBeRenamedNetworkPath="\\$targetComputer\c$\$targetFilePath"
+               $ActualDateTime = get-date -f yyymmddHHmmss 
+               Rename-Item -path $fileToBeRenamedNetworkPath -NewName "newName.$ActualDateTime" -Force  -PassThru -ErrorAction SilentlyContinue 
+                
+                if(-not $?) 
+                {
+                    write-warning "FAILURE: Renaming has failed."
+                }
+                else 
+                {
+                    write-host "SUCCESS: File has been renamed." -foregroundcolor Green
+                }
+                
+                  #Copying the file from source dir to target dir
+                  write-host "Trying to copy a new file..."
+
+                  $sourceFileNetworkPath="\\$sourceComputer\c$\$sourceFilePath"
+                  $targetDirNetworkPath = Split-Path $fileToBeRenamedNetworkPath -Parent
+                  Copy-Item -path $sourceFileNetworkPath -Destination $targetDirNetworkPath -PassThru -ErrorAction SilentlyContinue
+                  
+                  if(-not $?) 
+                   {
+                      write-warning "FAILURE: Could not copy the file from" $sourceFileNetworkPath "into" $targetDirNetworkPath
+                   }
+                 else 
+                   {
+                      write-host "SUCCESS: File has been copied." -foregroundcolor green
+                   } 
+}
