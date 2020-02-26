@@ -1,0 +1,15 @@
+function CheckConnection($Computername)
+{
+        $ConnectionResult = Test-Connection -ComputerName $Computername -Quiet
+        
+        if($ConnectionResult -eq $True)
+            {
+                write-host "Próba połączenia powiodła się dla:" $Computername
+                return $ConnectionResult
+            }
+        else
+            {
+                write-host "Próba połączenia nie powiodła się dla:" $Computername
+                return $ConnectionResult
+            }
+}
