@@ -1,0 +1,15 @@
+function DirectoryExists($path)
+{
+        Write-Host "Checking if dir exists on a given path $path"
+        $exists = Test-Path $path -PathType Container
+        if($exists -eq $true)
+        {
+            Write-Host "SUCCESS: Directory exists on a given path: $path"
+        }
+        else
+        {
+            Write-Host "FAILURE: Directory does not exists on a given path: $path"
+        }
+
+        return $exists
+}
