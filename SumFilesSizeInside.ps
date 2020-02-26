@@ -1,0 +1,10 @@
+function SumFilesSizeInside($directoryToCheck)
+{
+            Write-Host "Checking the size of " $directoryToCheck
+            $FullSize = Get-Childitem -Recurse $directoryToCheck | Measure-Object -Property length -Sum  
+
+            $SizeInGigabytes = $FullSize.sum/1MB #to M conversion
+
+            write-host "W: "$SizeInGigabytes "MB"
+
+}
