@@ -1,0 +1,25 @@
+function ReadLineByLineFromFile($pathToFile)
+{
+
+     return Get-Content -path $pathToFile
+}
+
+function GenerateArray($data)
+{
+     $array=@()
+   
+     foreach ($line in $data)
+     {
+         $array += @($line)
+     }
+     
+    return $array
+}
+
+function GetComputerNames
+{
+    $dataFromFile = ReadLineByLineFromFile("C:\temp\computerNames.txt")
+    $generatedArray = GenerateArray($dataFromFile);
+    write-host "Number of elements read: " $generatedArray.Count
+}
+ 
